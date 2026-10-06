@@ -1,0 +1,164 @@
+<title>Enviro Pest Daily Run Sheet</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: a field-service run sheet. Sticky header with role filter, time blocks stacked top to bottom, each a checklist. */
+:root {
+  --bg: #f3f5f1; --surface: #ffffff; --fg: #1d2a22; --muted: #5b6a60; --line: #d5ddd5;
+  --accent: #2f6b46; --accent-soft: #e2eee5; --warn: #b85a12; --warn-soft: #fbeadb;
+  --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --body: "Source Sans 3", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #121814; --surface: #1a221d; --fg: #e4ebe5; --muted: #9aa99f; --line: #2c3830;
+  --accent: #6fbf8b; --accent-soft: #1f3327; --warn: #f0a062; --warn-soft: #3a2817; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #121814; --surface: #1a221d; --fg: #e4ebe5; --muted: #9aa99f; --line: #2c3830;
+  --accent: #6fbf8b; --accent-soft: #1f3327; --warn: #f0a062; --warn-soft: #3a2817; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 15px; line-height: 1.45; }
+.wrap { max-width: 860px; margin: 0 auto; padding-inline: 16px; padding-block: 0 48px; }
+header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 2; background: var(--bg); border-bottom: 1px solid var(--line); padding-block: 16px 12px; display: grid; gap: 10px; }
+.top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; }
+h1 { font-family: var(--display); font-weight: 700; font-size: 30px; letter-spacing: .01em; margin: 0; text-wrap: balance; }
+.date { font-family: var(--mono); font-size: 13px; color: var(--muted); }
+.progress { display: flex; align-items: center; gap: 10px; }
+.bar { flex: 1; height: 8px; border-radius: 4px; background: var(--line); overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .25s; }
+.count { font-family: var(--mono); font-size: 13px; font-variant-numeric: tabular-nums; min-width: 4.5em; text-align: right; }
+.roles { display: flex; flex-wrap: wrap; gap: 6px; }
+.roles button, .reset { font: 600 13px var(--body); border: 1px solid var(--line); background: var(--surface); color: var(--fg); padding: 5px 12px; border-radius: 999px; cursor: pointer; }
+.roles button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+section { margin-top: 28px; }
+.block-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; border-bottom: 2px solid var(--fg); padding-bottom: 4px; }
+h2 { font-family: var(--display); font-weight: 600; font-size: 22px; text-transform: uppercase; letter-spacing: .04em; margin: 0; }
+.time { font-family: var(--mono); font-size: 13px; color: var(--muted); }
+.block-count { margin-left: auto; font-family: var(--mono); font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+ul { list-style: none; margin: 0; padding: 0; }
+li { border-bottom: 1px solid var(--line); }
+label { display: grid; grid-template-columns: 22px 1fr; gap: 12px; padding: 12px 4px; cursor: pointer; }
+input[type="checkbox"] { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--accent); }
+.task { min-width: 0; display: grid; gap: 4px; }
+.task strong { font-weight: 600; }
+li.done .task strong { text-decoration: line-through; color: var(--muted); }
+.meta { display: flex; flex-wrap: wrap; gap: 6px; font-size: 12px; }
+.tag { padding: 1px 8px; border-radius: 4px; background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.where { color: var(--muted); font-family: var(--mono); font-size: 12px; }
+.prio { padding: 1px 8px; border-radius: 4px; background: var(--warn-soft); color: var(--warn); font-weight: 600; }
+.foot { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; color: var(--muted); font-size: 13px; }
+@media (prefers-reduced-motion: reduce) { .bar i { transition: none; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="top">
+      <h1>Enviro Pest Daily Run Sheet</h1>
+      <span class="date" id="today"></span>
+    </div>
+    <div class="progress"><div class="bar"><i id="bar"></i></div><span class="count" id="count"></span></div>
+    <div class="roles" id="roles" role="group" aria-label="Filter by role"></div>
+  </header>
+  <main id="blocks"></main>
+  <div class="foot">
+    <span>Checkmarks save on this device and clear each new day.</span>
+    <button class="reset" id="reset" type="button">Clear today's checkmarks</button>
+  </div>
+</div>
+
+<script>
+const ROLES = ["All", "Office", "Sales", "Technicians", "Billing", "Manager"];
+const BLOCKS = [
+  { name: "Opening", time: "7:00 – 8:00 AM", tasks: [
+    ["Check voicemail, email and SalesInbox. Flag anything urgent.", "Office", "Zoho SalesInbox"],
+    ["Review today's schedule and routes in My Jobs. Fill any gaps.", "Office", "Zoho My Jobs"],
+    ["Confirm today's appointments with customers by call or text.", "Office", "Zoho Calls"],
+    ["Vehicle walk-around: tires, lights, fluids, sprayer equipment.", "Technicians", "Truck", 1],
+    ["Check chemical and bait stock, PPE, labels and SDS binder on the truck.", "Technicians", "Truck", 1],
+    ["Review your route and job notes before leaving.", "Technicians", "Zoho My Jobs"],
+    ["7:30 team huddle, 10 minutes: today's jobs, callbacks, priorities, safety reminder.", "Manager", "In person", 1]
+  ]},
+  { name: "Morning", time: "8:00 AM – 12:00 PM", tasks: [
+    ["Respond to every new lead within 1 hour.", "Sales", "Zoho Leads", 1],
+    ["Follow up on open quotes and move each deal to its correct stage.", "Sales", "Zoho Deals"],
+    ["Schedule new and one-time jobs; handle reschedules.", "Office", "Zoho One Time / My Jobs"],
+    ["Complete each service. Note pest activity and conducive conditions, and take photos.", "Technicians", "Job site"],
+    ["Record chemical application for every stop: product, EPA reg #, amount, target pest, area treated.", "Technicians", "Service record", 1],
+    ["Pass add-on service needs or referrals to the office as new leads.", "Technicians", "Zoho Leads"]
+  ]},
+  { name: "Midday", time: "12:00 – 2:00 PM", tasks: [
+    ["Invoice yesterday's and this morning's completed jobs.", "Billing", "QuickBooks", 1],
+    ["Attach invoice copies to the customer record.", "Billing", "Zoho Customer Invoice"],
+    ["Check A/R aging. Send reminders on anything 30+ days past due.", "Billing", "QuickBooks"],
+    ["Contact customers whose renewals are due in the next 30 days.", "Office", "Zoho Renewals"],
+    ["Work the win-back list. Skip anyone on Inactive Never Send.", "Sales", "Zoho Inactive Customers"]
+  ]},
+  { name: "Afternoon", time: "2:00 – 4:00 PM", tasks: [
+    ["Resolve open tickets and complaints. Book re-services the same day.", "Office", "Zoho Tickets", 1],
+    ["Process supply and truck orders submitted by technicians.", "Manager", "Zoho Truck Orders"],
+    ["Log every call and its outcome in the CRM.", "Sales", "Zoho Calls"],
+    ["Check in with technicians on route progress and running-late jobs.", "Office", "Phone"]
+  ]},
+  { name: "Close of day", time: "4:00 – 5:30 PM", tasks: [
+    ["Mark all jobs complete with notes, photos and chemical usage.", "Technicians", "Zoho My Jobs", 1],
+    ["Submit truck and supply order requests for tomorrow.", "Technicians", "Zoho Truck Orders"],
+    ["Lock up chemicals, clean equipment and secure the vehicle.", "Technicians", "Truck", 1],
+    ["Confirm tomorrow's schedule and send appointment reminders.", "Office", "Zoho My Jobs"],
+    ["Close out or reassign today's open CRM tasks.", "Office", "Zoho Tasks"],
+    ["Record payments received and prepare the deposit.", "Billing", "QuickBooks"],
+    ["Daily review: jobs done vs. scheduled, new leads, deals won, open tickets, payments in.", "Manager", "Zoho Reports / QuickBooks"]
+  ]}
+];
+const FRIDAY = { name: "Fridays only", time: "Weekly add-on", tasks: [
+  ["Review the week: revenue, jobs completed, close rate, callbacks.", "Manager", "Zoho Reports / QuickBooks"],
+  ["Check chemical inventory against next week's schedule.", "Manager", "Inventory"],
+  ["Clean up duplicate or stale leads and deals.", "Sales", "Zoho Leads / Deals"],
+  ["Run an A/R aging summary and plan collections.", "Billing", "QuickBooks"]
+]};
+
+const now = new Date();
+const dayKey = "ep-" + now.toISOString().slice(0, 10);
+const blocks = now.getDay() === 5 ? [...BLOCKS, FRIDAY] : BLOCKS;
+let done = {}, role = "All";
+try { done = JSON.parse(localStorage.getItem(dayKey)) || {}; role = localStorage.getItem("ep-role") || "All"; } catch (e) {}
+const save = () => { try { localStorage.setItem(dayKey, JSON.stringify(done)); localStorage.setItem("ep-role", role); } catch (e) {} };
+
+document.getElementById("today").textContent = now.toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric", year: "numeric" });
+
+const rolesEl = document.getElementById("roles");
+ROLES.forEach(r => {
+  const b = document.createElement("button");
+  b.type = "button"; b.textContent = r; b.id = "role-" + r;
+  b.onclick = () => { role = r; save(); render(); };
+  rolesEl.appendChild(b);
+});
+
+function render() {
+  [...rolesEl.children].forEach(b => b.setAttribute("aria-pressed", b.textContent === role));
+  const main = document.getElementById("blocks");
+  main.innerHTML = "";
+  let total = 0, checked = 0;
+  blocks.forEach((blk, bi) => {
+    const tasks = blk.tasks.map((t, ti) => ({ t, id: bi + "-" + ti })).filter(x => role === "All" || x.t[1] === role);
+    if (!tasks.length) return;
+    const n = tasks.filter(x => done[x.id]).length;
+    total += tasks.length; checked += n;
+    const sec = document.createElement("section");
+    sec.innerHTML = `<div class="block-head"><h2>${blk.name}</h2><span class="time">${blk.time}</span><span class="block-count">${n}/${tasks.length}</span></div>`;
+    const ul = document.createElement("ul");
+    tasks.forEach(({ t: [text, who, where, prio], id }) => {
+      const li = document.createElement("li");
+      li.className = done[id] ? "done" : "";
+      li.innerHTML = `<label><input type="checkbox" id="t${id}" ${done[id] ? "checked" : ""}><span class="task"><strong></strong><span class="meta"><span class="tag">${who}</span>${prio ? '<span class="prio">Must do</span>' : ""}<span class="where">${where}</span></span></span></label>`;
+      li.querySelector("strong").textContent = text;
+      li.querySelector("input").onchange = e => { e.target.checked ? done[id] = 1 : delete done[id]; save(); render(); };
+      ul.appendChild(li);
+    });
+    sec.appendChild(ul);
+    main.appendChild(sec);
+  });
+  document.getElementById("count").textContent = `${checked}/${total}`;
+  document.getElementById("bar").style.width = total ? (checked / total * 100) + "%" : "0";
+}
+document.getElementById("reset").onclick = () => { done = {}; save(); render(); };
+render();
+</script>
