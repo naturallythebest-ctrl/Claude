@@ -1,0 +1,188 @@
+<title>Enviro Pest Pathway</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: one command page. Sticky header with status counts and tabs; each tab is a stacked list grouped by phase, time, or area. */
+:root {
+  --bg: #f3f5f1; --surface: #ffffff; --fg: #1d2a22; --muted: #5b6a60; --line: #d5ddd5;
+  --accent: #2f6b46; --accent-soft: #e2eee5;
+  --warn: #a8530f; --warn-soft: #fbeadb; --bad: #b3261e; --bad-soft: #fbe3e1; --info: #2d5f8a; --info-soft: #e1ecf6;
+  --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --body: "Source Sans 3", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #121814; --surface: #1a221d; --fg: #e4ebe5; --muted: #9aa99f; --line: #2c3830;
+  --accent: #6fbf8b; --accent-soft: #1f3327; --warn: #f0a062; --warn-soft: #3a2817;
+  --bad: #f2867d; --bad-soft: #3d1f1d; --info: #8dbbe6; --info-soft: #1c2b3a; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #121814; --surface: #1a221d; --fg: #e4ebe5; --muted: #9aa99f; --line: #2c3830;
+  --accent: #6fbf8b; --accent-soft: #1f3327; --warn: #f0a062; --warn-soft: #3a2817;
+  --bad: #f2867d; --bad-soft: #3d1f1d; --info: #8dbbe6; --info-soft: #1c2b3a; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 15px; line-height: 1.45; }
+.wrap { max-width: 960px; margin: 0 auto; padding-inline: 16px; padding-block: 0 56px; }
+header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 2; background: var(--bg); border-bottom: 1px solid var(--line); padding-block: 16px 0; display: grid; gap: 10px; }
+.top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; }
+h1 { font-family: var(--display); font-weight: 700; font-size: 32px; margin: 0; letter-spacing: .01em; }
+.sub { color: var(--muted); font-size: 14px; }
+.counts { display: flex; flex-wrap: wrap; gap: 8px; font-size: 13px; }
+.counts span { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+nav { display: flex; gap: 2px; overflow-x: auto; }
+nav button { font: 600 15px var(--display); letter-spacing: .05em; text-transform: uppercase; background: none; border: 0; border-bottom: 3px solid transparent; color: var(--muted); padding: 8px 12px; cursor: pointer; white-space: nowrap; }
+nav button[aria-selected="true"] { color: var(--fg); border-bottom-color: var(--accent); }
+button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+h2 { font-family: var(--display); font-weight: 600; font-size: 22px; text-transform: uppercase; letter-spacing: .04em; margin: 0; }
+.group { margin-top: 28px; }
+.group-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; border-bottom: 2px solid var(--fg); padding-bottom: 4px; }
+.group-head .when { font-family: var(--mono); font-size: 13px; color: var(--muted); }
+.group-intro { color: var(--muted); margin: 8px 0 0; max-width: 70ch; }
+.row { display: grid; grid-template-columns: 4.5rem 1fr auto; gap: 4px 14px; padding: 14px 2px; border-bottom: 1px solid var(--line); align-items: start; }
+.row > * { min-width: 0; }
+.code { font-family: var(--mono); font-size: 13px; color: var(--muted); padding-top: 2px; font-variant-numeric: tabular-nums; }
+.title { font-weight: 600; }
+.desc { margin-top: 2px; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; font-size: 12px; }
+.chip { padding: 1px 8px; border-radius: 4px; background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.chip.dep { background: var(--info-soft); color: var(--info); }
+.next { margin-top: 6px; font-size: 13px; color: var(--muted); }
+.next b { color: var(--fg); font-weight: 600; }
+select { font: 600 13px var(--body); padding: 4px 6px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); }
+.pill { display: inline-block; font: 600 12px var(--body); padding: 2px 9px; border-radius: 999px; white-space: nowrap; }
+.s-blocked { background: var(--bad-soft); color: var(--bad); }
+.s-notstarted { background: var(--line); color: var(--fg); }
+.s-progress { background: var(--warn-soft); color: var(--warn); }
+.s-done, .s-running { background: var(--accent-soft); color: var(--accent); }
+.phase-list { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 6px; }
+.phase-list li { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.phase-list .code { min-width: 2.5rem; }
+.empty { margin-top: 32px; padding: 20px; border: 1px dashed var(--line); border-radius: 8px; color: var(--muted); }
+.need { grid-template-columns: 1.75rem 1fr; }
+.need input { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--accent); }
+.need.done .title { text-decoration: line-through; color: var(--muted); }
+.foot { margin-top: 36px; color: var(--muted); font-size: 13px; }
+.foot a { color: var(--accent); }
+@media (max-width: 560px) { .row { grid-template-columns: 1fr; } .row .code { padding: 0; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="top">
+      <h1>Enviro Pest Pathway</h1>
+      <span class="sub">Every project, the daily run and what's blocking it, in one place.</span>
+    </div>
+    <div class="counts" id="counts"></div>
+    <nav role="tablist" aria-label="Sections">
+      <button role="tab" id="tab-pathway" data-tab="pathway">Pathway</button>
+      <button role="tab" id="tab-projects" data-tab="projects">Projects</button>
+      <button role="tab" id="tab-daily" data-tab="daily">Daily run</button>
+      <button role="tab" id="tab-needs" data-tab="needs">Needed from you</button>
+    </nav>
+  </header>
+  <main id="view"><div class="empty">Loading the plan…</div></main>
+  <p class="foot">Staff checklist for field and office: <a href="https://claude.ai/artifact/L6BPBW5JbuTdwjwkPK3bvF">Enviro Pest Daily Run Sheet</a>. Status changes here save for everyone who opens this page.</p>
+</div>
+
+<script>
+const PHASES = [
+  { n: 1, name: "Connect", when: "This week", intro: "Get every system talking to each other. Nothing else can be automated until these connections work." },
+  { n: 2, name: "Stabilize", when: "Weeks 2–3", intro: "Clean up the data and communication we already have, and train the staff on the new setup." },
+  { n: 3, name: "Automate", when: "Weeks 3–5", intro: "Turn on auto-replies, after-hours messaging, and the scheduled daily reports." },
+  { n: 4, name: "Grow", when: "Month 2 on", intro: "Budgets, planning and marketing built on clean, connected data." }
+];
+const STATUSES = ["Not started", "Blocked", "In progress", "Done"];
+const DAILY_STATUSES = ["Not set up", "Blocked", "Testing", "Running"];
+const cls = s => ({ "Blocked": "s-blocked", "In progress": "s-progress", "Testing": "s-progress", "Done": "s-done", "Running": "s-running" }[s] || "s-notstarted");
+
+let projects = [], daily = [], needs = [], loaded = { p: false, d: false, n: false }, db = null, canWrite = true;
+let tab = "pathway";
+try { tab = localStorage.getItem("pw-tab") || (location.hash || "").slice(1) || "pathway"; } catch (e) {}
+
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const chips = (arr, kind) => (arr || []).map(x => `<span class="chip${kind ? " " + kind : ""}">${esc(x)}</span>`).join("");
+
+function statusControl(coll, item, list) {
+  if (!db || !canWrite) return `<span class="pill ${cls(item.status)}">${esc(item.status)}</span>`;
+  return `<select aria-label="Status for ${esc(item.name || item.item)}" data-coll="${coll}" data-id="${esc(item.id)}" id="st-${coll}-${esc(item.id)}">${list.map(s => `<option${s === item.status ? " selected" : ""}>${s}</option>`).join("")}</select>`;
+}
+
+function renderCounts() {
+  const by = s => projects.filter(p => p.status === s).length;
+  const open = needs.filter(n => !n.done).length;
+  document.getElementById("counts").innerHTML = projects.length ? `
+    <span class="pill s-notstarted">${by("Not started")} not started</span>
+    <span class="pill s-blocked">${by("Blocked")} blocked</span>
+    <span class="pill s-progress">${by("In progress")} in progress</span>
+    <span class="pill s-done">${by("Done")} done</span>
+    <span class="pill s-blocked">${open} items needed from you</span>` : "";
+}
+
+function projectRow(p) {
+  return `<div class="row">
+    <span class="code">${esc(p.code)}</span>
+    <div><div class="title">${esc(p.name)}</div><div class="desc">${esc(p.goal)}</div>
+      <div class="meta">${chips(p.systems)}${p.due ? `<span class="chip dep">Due ${esc(p.due)}</span>` : ""}${(p.depends || []).length ? `<span class="chip dep">Needs ${esc(p.depends.join(", "))}</span>` : ""}</div>
+      ${p.next ? `<div class="next"><b>Next step:</b> ${esc(p.next)}</div>` : ""}</div>
+    <div>${statusControl("projects", p, STATUSES)}</div></div>`;
+}
+
+function render() {
+  document.querySelectorAll("nav button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab === tab));
+  renderCounts();
+  const v = document.getElementById("view");
+  const ready = loaded.p && loaded.d && loaded.n;
+  if (!db && ready) { v.innerHTML = `<div class="empty">This plan is stored with the page. Sign in to claude.ai to see it.</div>`; return; }
+  if (!ready) { v.innerHTML = `<div class="empty">Loading the plan…</div>`; return; }
+  if (tab === "pathway") {
+    v.innerHTML = PHASES.map(ph => {
+      const ps = projects.filter(p => p.phase === ph.n);
+      return `<section class="group"><div class="group-head"><h2>Phase ${ph.n} · ${ph.name}</h2><span class="when">${ph.when}</span></div>
+        <p class="group-intro">${ph.intro}</p>
+        <ul class="phase-list">${ps.map(p => `<li><span class="code">${esc(p.code)}</span><span>${esc(p.name)}</span><span class="pill ${cls(p.status)}">${esc(p.status)}</span></li>`).join("") || "<li>No projects yet.</li>"}</ul></section>`;
+    }).join("");
+  } else if (tab === "projects") {
+    const areas = [...new Set(projects.map(p => p.area))];
+    v.innerHTML = areas.length ? areas.map(a => `<section class="group"><div class="group-head"><h2>${esc(a)}</h2></div>${projects.filter(p => p.area === a).map(projectRow).join("")}</section>`).join("")
+      : `<div class="empty">No projects yet. Ask Claude to add the first one.</div>`;
+  } else if (tab === "daily") {
+    const groups = [...new Set(daily.map(d => d.block))];
+    v.innerHTML = groups.length ? groups.map(g => `<section class="group"><div class="group-head"><h2>${esc(g)}</h2></div>${daily.filter(d => d.block === g).map(d => `
+      <div class="row"><span class="code">${esc(d.time)}</span>
+        <div><div class="title">${esc(d.name)}</div><div class="desc">${esc(d.detail)}</div>
+          <div class="meta"><span class="chip">${esc(d.runBy)}</span>${d.sendsTo ? `<span class="chip">To: ${esc(d.sendsTo)}</span>` : ""}${(d.depends || []).length ? `<span class="chip dep">Needs ${esc(d.depends.join(", "))}</span>` : ""}</div></div>
+        <div>${statusControl("daily", d, DAILY_STATUSES)}</div></div>`).join("")}</section>`).join("")
+      : `<div class="empty">No daily tasks yet.</div>`;
+  } else {
+    v.innerHTML = needs.length ? `<section class="group"><div class="group-head"><h2>Needed from you</h2><span class="when">Each one unblocks work</span></div>
+      <p class="group-intro">Tick an item once you've sent it or set it up.</p>
+      ${needs.map(n => `<div class="row need${n.done ? " done" : ""}">
+        <input type="checkbox" id="need-${esc(n.id)}" data-need="${esc(n.id)}" ${n.done ? "checked" : ""} ${db && canWrite ? "" : "disabled"} aria-label="${esc(n.item)}">
+        <div><label for="need-${esc(n.id)}" class="title">${esc(n.item)}</label><div class="desc">${esc(n.why)}</div>
+        <div class="meta">${chips(n.unlocks, "dep")}</div></div></div>`).join("")}</section>`
+      : `<div class="empty">Nothing needed right now.</div>`;
+  }
+}
+
+document.querySelector("nav").addEventListener("click", e => {
+  const b = e.target.closest("button[data-tab]"); if (!b) return;
+  tab = b.dataset.tab; try { localStorage.setItem("pw-tab", tab); } catch (err) {} render();
+});
+document.getElementById("view").addEventListener("change", async e => {
+  const t = e.target;
+  try {
+    if (t.matches("select[data-coll]")) await db.collection(t.dataset.coll).doc(t.dataset.id).update({ status: t.value });
+    else if (t.matches("input[data-need]")) await db.collection("needs").doc(t.dataset.need).update({ done: t.checked });
+  } catch (err) {
+    if (err && (err.code === "permission_denied" || err.code === "not_granted")) { canWrite = false; render(); }
+  }
+});
+
+render();
+(async () => {
+  db = await (window.claude?.use ? window.claude.use("db") : null);
+  if (!db) { loaded = { p: true, d: true, n: true }; render(); return; }
+  try { const user = await window.claude.use("user"); if (user && typeof user.can === "function" && user.can("data.write") === false) canWrite = false; } catch (e) {}
+  const sub = (name, key, setter) => db.collection(name).orderBy("order").onSnapshot(s => { setter(s.docs.map(d => ({ id: d.id, ...d.data() }))); loaded[key] = true; render(); }, () => { loaded[key] = true; render(); });
+  sub("projects", "p", x => projects = x);
+  sub("daily", "d", x => daily = x);
+  sub("needs", "n", x => needs = x);
+})();
+</script>
