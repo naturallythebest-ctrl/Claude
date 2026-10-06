@@ -1,0 +1,15 @@
+{
+ "code": "A1",
+ "phase": 1,
+ "area": "Connections & data",
+ "name": "Connect GorillaDesk API",
+ "goal": "GorillaDesk is the hub for customers, jobs, invoices and SMS. Its API (API-key access) feeds every sync, report and auto-reply in this plan, so it comes first.",
+ "systems": [
+  "GorillaDesk API"
+ ],
+ "depends": [],
+ "status": "Blocked",
+ "next": "Create an API key in GorillaDesk settings and send it to me securely. I'll test read access to customers, jobs, invoices and messages.",
+ "due": null,
+ "order": 0
+}

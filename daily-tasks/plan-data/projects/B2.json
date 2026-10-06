@@ -1,0 +1,18 @@
+{
+ "code": "B2",
+ "phase": 2,
+ "area": "Customer communication",
+ "name": "Fix GorillaDesk communication",
+ "goal": "Review every field contact and repair inbound and outbound SMS, email and Rosie messages so nothing is missed.",
+ "systems": [
+  "GorillaDesk",
+  "Rosie"
+ ],
+ "depends": [
+  "A1"
+ ],
+ "status": "Not started",
+ "next": "Audit last 30 days of GorillaDesk messages for unanswered or failed threads.",
+ "due": null,
+ "order": 6
+}

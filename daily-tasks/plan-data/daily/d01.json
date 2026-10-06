@@ -1,0 +1,14 @@
+{
+ "block": "Early morning",
+ "time": "7:00",
+ "name": "LSA and leads report",
+ "detail": "Previous day's Local Services Ads and leads by location, sales and lead source, with opportunities called out. Sent by 7 AM.",
+ "runBy": "Claude routine",
+ "sendsTo": "Bob, Robert",
+ "depends": [
+  "A1",
+  "C4"
+ ],
+ "status": "Not set up",
+ "order": 0
+}

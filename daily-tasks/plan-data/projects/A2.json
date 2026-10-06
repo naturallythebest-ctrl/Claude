@@ -1,0 +1,15 @@
+{
+ "code": "A2",
+ "phase": 1,
+ "area": "Connections & data",
+ "name": "Connect Stripe",
+ "goal": "Reading payments and subscriptions lets us reconcile Stripe against GorillaDesk every hour and catch failed subscription charges.",
+ "systems": [
+  "Stripe"
+ ],
+ "depends": [],
+ "status": "Blocked",
+ "next": "Finish connecting the Stripe connector in claude.ai (it's started but not completed).",
+ "due": null,
+ "order": 1
+}

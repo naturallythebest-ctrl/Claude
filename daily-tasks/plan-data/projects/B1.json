@@ -1,0 +1,19 @@
+{
+ "code": "B1",
+ "phase": 2,
+ "area": "Connections & data",
+ "name": "Zoho ↔ GorillaDesk two-way sync",
+ "goal": "GorillaDesk updates Zoho contacts and packages; Renewals statuses stay current; inactive or unhappy clients move automatically and trigger the right campaigns; Zoho edits flow back to GorillaDesk. Fix broken renewal links and tokens.",
+ "systems": [
+  "Zoho CRM",
+  "GorillaDesk API",
+  "Zoho Flow"
+ ],
+ "depends": [
+  "A1"
+ ],
+ "status": "Not started",
+ "next": "Map fields between the two systems and list every status rule.",
+ "due": null,
+ "order": 5
+}

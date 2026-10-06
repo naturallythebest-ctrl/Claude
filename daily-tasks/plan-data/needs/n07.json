@@ -1,0 +1,9 @@
+{
+ "item": "Bob's current lead sheet",
+ "why": "So the new popup matches what he already uses.",
+ "unlocks": [
+  "B5"
+ ],
+ "done": false,
+ "order": 6
+}

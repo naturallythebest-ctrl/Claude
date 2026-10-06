@@ -1,0 +1,10 @@
+{
+ "item": "Rules and email designs from earlier projects",
+ "why": "Review reply rules, LSA rating rules, package build rules, welcome emails, review-request emails.",
+ "unlocks": [
+  "A4",
+  "C4"
+ ],
+ "done": false,
+ "order": 4
+}

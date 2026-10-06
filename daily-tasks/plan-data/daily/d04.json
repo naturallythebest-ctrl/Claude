@@ -1,0 +1,13 @@
+{
+ "block": "Morning",
+ "time": "8:00",
+ "name": "Rate LSA leads",
+ "detail": "Rate and annotate yesterday's LSA leads based on our rules.",
+ "runBy": "Claude routine",
+ "sendsTo": "",
+ "depends": [
+  "A4"
+ ],
+ "status": "Not set up",
+ "order": 3
+}

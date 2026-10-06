@@ -1,0 +1,9 @@
+{
+ "item": "Where the budget data lives",
+ "why": "QuickBooks is connected; tell me if there's also a spreadsheet.",
+ "unlocks": [
+  "D1"
+ ],
+ "done": false,
+ "order": 8
+}

@@ -1,0 +1,18 @@
+{
+ "code": "B5",
+ "phase": 2,
+ "area": "Sales & intake",
+ "name": "Lead intake popup for Bob",
+ "goal": "One Zoho popup where Bob enters a new lead once; it creates the lead in Zoho and the customer and job in GorillaDesk, ready for paperwork and scheduling. Replaces the cut-and-paste sheet.",
+ "systems": [
+  "Zoho CRM",
+  "GorillaDesk API"
+ ],
+ "depends": [
+  "A1"
+ ],
+ "status": "Not started",
+ "next": "Get a copy of Bob's current sheet and match its fields.",
+ "due": null,
+ "order": 9
+}

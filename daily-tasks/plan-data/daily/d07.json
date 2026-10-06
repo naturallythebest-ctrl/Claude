@@ -1,0 +1,13 @@
+{
+ "block": "Morning",
+ "time": "10:00",
+ "name": "CRM flow check",
+ "detail": "Confirm GorillaDesk updates reached Zoho, Renewals statuses and stage moves are correct, campaigns triggered, and renewal links and tokens work. Push Zoho changes back to GorillaDesk.",
+ "runBy": "Claude routine",
+ "sendsTo": "Robert (exceptions only)",
+ "depends": [
+  "B1"
+ ],
+ "status": "Not set up",
+ "order": 6
+}

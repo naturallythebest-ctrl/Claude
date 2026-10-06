@@ -1,0 +1,11 @@
+{
+ "block": "Weekly",
+ "time": "Mon 7:00",
+ "name": "Truck inspection, chemical check, 7:30 huddle",
+ "detail": "From the staff run sheet.",
+ "runBy": "Staff",
+ "sendsTo": "Technicians, manager",
+ "depends": [],
+ "status": "Not set up",
+ "order": 13
+}

@@ -1,0 +1,15 @@
+{
+ "code": "A4",
+ "phase": 1,
+ "area": "Connections & data",
+ "name": "Clean up old project lists",
+ "goal": "This page replaces the scattered project lists. Collect the rules and email designs from earlier projects into one place so every automation uses the same version.",
+ "systems": [
+  "Claude"
+ ],
+ "depends": [],
+ "status": "In progress",
+ "next": "Send me the review rules, LSA rating rules, package build rules, welcome emails and review-request emails.",
+ "due": null,
+ "order": 3
+}

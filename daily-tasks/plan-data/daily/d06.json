@@ -1,0 +1,13 @@
+{
+ "block": "Morning",
+ "time": "9:00",
+ "name": "Send review requests",
+ "detail": "Send the review-request emails we already designed to new clients.",
+ "runBy": "Zoho workflow",
+ "sendsTo": "Clients",
+ "depends": [
+  "C4"
+ ],
+ "status": "Not set up",
+ "order": 5
+}

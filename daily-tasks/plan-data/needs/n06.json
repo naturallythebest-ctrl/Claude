@@ -1,0 +1,10 @@
+{
+ "item": "Previous training program and the list of technicians",
+ "why": "For next week's training deck and inspection documents.",
+ "unlocks": [
+  "E1",
+  "E2"
+ ],
+ "done": false,
+ "order": 5
+}

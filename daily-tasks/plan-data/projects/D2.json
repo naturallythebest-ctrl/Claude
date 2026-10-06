@@ -1,0 +1,15 @@
+{
+ "code": "D2",
+ "phase": 4,
+ "area": "Personal",
+ "name": "Personal budget and payment dates",
+ "goal": "Track personal bills and due dates, and review what can be cut.",
+ "systems": [
+  "Personal"
+ ],
+ "depends": [],
+ "status": "Not started",
+ "next": "List recurring bills and due dates.",
+ "due": null,
+ "order": 18
+}

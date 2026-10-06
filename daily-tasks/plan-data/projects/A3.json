@@ -1,0 +1,15 @@
+{
+ "code": "A3",
+ "phase": 1,
+ "area": "Field & fleet",
+ "name": "Link Ford Pro telematics",
+ "goal": "Vehicle reporting every morning, plus an urgent alert to Robert and the team leaders if a truck is started or moved on a day off.",
+ "systems": [
+  "Ford Pro Telematics"
+ ],
+ "depends": [],
+ "status": "Blocked",
+ "next": "In Ford Pro, turn on restricted-hours alerts for days off and add Robert and team leaders as recipients. Consider Fleet Start Inhibit.",
+ "due": null,
+ "order": 2
+}

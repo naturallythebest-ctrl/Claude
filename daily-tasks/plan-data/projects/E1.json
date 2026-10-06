@@ -1,0 +1,15 @@
+{
+ "code": "E1",
+ "phase": 2,
+ "area": "People & training",
+ "name": "Staff training deck",
+ "goal": "New slide deck covering every new program and process, built from the previous training program.",
+ "systems": [
+  "Slides"
+ ],
+ "depends": [],
+ "status": "Not started",
+ "next": "Send me the previous training program.",
+ "due": "Next week",
+ "order": 10
+}

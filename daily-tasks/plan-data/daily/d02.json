@@ -1,0 +1,14 @@
+{
+ "block": "Early morning",
+ "time": "7:00",
+ "name": "Ticket sweep 1 + vehicle report",
+ "detail": "Reconcile GorillaDesk and Zoho tickets as scheduled, completed or handled. Email Robert anything concerning. Message technicians about unresolved items (GorillaDesk inbox, Rosie). Include vehicles and driving.",
+ "runBy": "Claude routine",
+ "sendsTo": "Robert, technicians",
+ "depends": [
+  "A1",
+  "A3"
+ ],
+ "status": "Not set up",
+ "order": 1
+}

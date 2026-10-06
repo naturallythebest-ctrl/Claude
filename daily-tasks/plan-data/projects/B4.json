@@ -1,0 +1,19 @@
+{
+ "code": "B4",
+ "phase": 2,
+ "area": "Sales & intake",
+ "name": "One-time and upgrade estimates",
+ "goal": "Add one-time and upgrade estimates to the system with email templates and payment links.",
+ "systems": [
+  "Zoho CRM",
+  "Stripe",
+  "QuickBooks"
+ ],
+ "depends": [
+  "A2"
+ ],
+ "status": "Not started",
+ "next": "Agree the estimate templates and price lists.",
+ "due": null,
+ "order": 8
+}

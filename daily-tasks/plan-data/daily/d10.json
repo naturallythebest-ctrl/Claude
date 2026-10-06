@@ -1,0 +1,13 @@
+{
+ "block": "Afternoon",
+ "time": "5:00 PM",
+ "name": "Ticket sweep 3",
+ "detail": "Same as the 7 AM sweep, without the vehicle report.",
+ "runBy": "Claude routine",
+ "sendsTo": "Robert, technicians",
+ "depends": [
+  "A1"
+ ],
+ "status": "Not set up",
+ "order": 9
+}

@@ -1,0 +1,14 @@
+{
+ "item": "GorillaDesk API key",
+ "why": "The single biggest unlock. Without it I can't sync, reconcile, or auto-reply.",
+ "unlocks": [
+  "A1",
+  "B1",
+  "B2",
+  "B5",
+  "C1",
+  "C3"
+ ],
+ "done": false,
+ "order": 0
+}

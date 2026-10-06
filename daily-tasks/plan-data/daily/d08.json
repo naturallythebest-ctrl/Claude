@@ -1,0 +1,14 @@
+{
+ "block": "All day",
+ "time": "6 AM–9 PM, hourly",
+ "name": "Stripe ↔ GorillaDesk reconcile",
+ "detail": "Match payments, check subscription charges, flag payments not collected in the field, and QC new client intake against the package build rules.",
+ "runBy": "Claude routine",
+ "sendsTo": "Robert (exceptions only)",
+ "depends": [
+  "A1",
+  "A2"
+ ],
+ "status": "Not set up",
+ "order": 7
+}

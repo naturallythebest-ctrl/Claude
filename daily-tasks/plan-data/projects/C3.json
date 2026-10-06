@@ -1,0 +1,20 @@
+{
+ "code": "C3",
+ "phase": 3,
+ "area": "Connections & data",
+ "name": "Automate the daily run",
+ "goal": "Set up each item on the Daily run tab as a scheduled routine or workflow.",
+ "systems": [
+  "Claude routines",
+  "Zoho workflows"
+ ],
+ "depends": [
+  "A1",
+  "A2",
+  "A3"
+ ],
+ "status": "Not started",
+ "next": "Start with the 7 AM ticket sweep once GorillaDesk is connected.",
+ "due": null,
+ "order": 14
+}

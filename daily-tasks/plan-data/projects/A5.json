@@ -1,0 +1,15 @@
+{
+ "code": "A5",
+ "phase": 1,
+ "area": "Finance",
+ "name": "Resolve Verizon past-due bill",
+ "goal": "$161.51 past due on business account ending 1059-00001; service interruption was scheduled around Oct 4.",
+ "systems": [
+  "Verizon"
+ ],
+ "depends": [],
+ "status": "Not started",
+ "next": "Call 800-811-6200, confirm the balance and whether it's Frankie's old number, pay, register in My Business and turn on Auto Pay.",
+ "due": "Now",
+ "order": 4
+}

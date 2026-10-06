@@ -1,0 +1,22 @@
+{
+ "code": "C1",
+ "phase": 3,
+ "area": "Customer communication",
+ "name": "Auto-reply flow",
+ "goal": "Every client gets an SMS or email reply for anything in our system. Replies are chosen by request type and cover Zoho tickets and GorillaDesk SMS. Claude drafts, and Zoho Flow sends.",
+ "systems": [
+  "Zoho Flow",
+  "Claude API",
+  "GorillaDesk API",
+  "Zoho CRM"
+ ],
+ "depends": [
+  "A1",
+  "B2",
+  "B3"
+ ],
+ "status": "Not started",
+ "next": "Write the request types and the reply for each.",
+ "due": null,
+ "order": 12
+}

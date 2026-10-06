@@ -1,0 +1,15 @@
+{
+ "code": "D1",
+ "phase": 4,
+ "area": "Finance",
+ "name": "Business budget hub",
+ "goal": "Real-time revenue vs. expenses for Robert and Karen, built on the budget data already in the system.",
+ "systems": [
+  "QuickBooks"
+ ],
+ "depends": [],
+ "status": "Not started",
+ "next": "Tell me where the existing budget data lives (QuickBooks, a spreadsheet, or both).",
+ "due": null,
+ "order": 16
+}

@@ -1,0 +1,13 @@
+{
+ "block": "Early morning",
+ "time": "7:30",
+ "name": "Daily company review",
+ "detail": "Budget update, upcoming wins and concerns.",
+ "runBy": "Claude routine",
+ "sendsTo": "Robert",
+ "depends": [
+  "D1"
+ ],
+ "status": "Not set up",
+ "order": 2
+}

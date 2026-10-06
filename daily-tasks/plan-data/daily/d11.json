@@ -1,0 +1,14 @@
+{
+ "block": "Afternoon",
+ "time": "5:30 PM",
+ "name": "Queue welcome emails",
+ "detail": "Line up the designed welcome emails for clients completed today, to go out the next day.",
+ "runBy": "Zoho workflow",
+ "sendsTo": "Clients",
+ "depends": [
+  "A1",
+  "A4"
+ ],
+ "status": "Not set up",
+ "order": 10
+}

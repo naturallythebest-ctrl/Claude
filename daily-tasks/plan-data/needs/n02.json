@@ -1,0 +1,10 @@
+{
+ "item": "Finish the Stripe connector",
+ "why": "It's started in claude.ai but not completed.",
+ "unlocks": [
+  "A2",
+  "B4"
+ ],
+ "done": false,
+ "order": 1
+}

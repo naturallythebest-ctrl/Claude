@@ -1,0 +1,18 @@
+{
+ "code": "C4",
+ "phase": 3,
+ "area": "Marketing & reviews",
+ "name": "Review management",
+ "goal": "Reply to new Google reviews based on our rules, and send review-request emails to new clients at 9 AM.",
+ "systems": [
+  "Google Business Profile",
+  "Zoho CRM"
+ ],
+ "depends": [
+  "A4"
+ ],
+ "status": "Blocked",
+ "next": "Give manager access to the Google Business Profile.",
+ "due": null,
+ "order": 15
+}

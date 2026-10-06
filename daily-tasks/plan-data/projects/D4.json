@@ -1,0 +1,19 @@
+{
+ "code": "D4",
+ "phase": 4,
+ "area": "Marketing & reviews",
+ "name": "Marketing plan",
+ "goal": "One plan across all lead sources (Local Services Ads, Google Ads, website, GorillaDesk booking, Rosie calls, referrals, email), plus a regular review of performance and local presence.",
+ "systems": [
+  "LSA",
+  "Google Ads",
+  "Zoho Campaigns"
+ ],
+ "depends": [
+  "C4"
+ ],
+ "status": "Not started",
+ "next": "Pull the last 90 days of leads by source.",
+ "due": null,
+ "order": 17
+}

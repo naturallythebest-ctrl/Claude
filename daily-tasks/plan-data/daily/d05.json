@@ -1,0 +1,13 @@
+{
+ "block": "Morning",
+ "time": "8:30",
+ "name": "Review replies",
+ "detail": "Check for new reviews and reply based on our rules.",
+ "runBy": "Claude routine",
+ "sendsTo": "",
+ "depends": [
+  "C4"
+ ],
+ "status": "Not set up",
+ "order": 4
+}

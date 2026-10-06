@@ -1,0 +1,16 @@
+{
+ "code": "D3",
+ "phase": 4,
+ "area": "Personal",
+ "name": "Family calendar sync",
+ "goal": "One calendar that syncs everyone's personal and family events.",
+ "systems": [
+  "Google Calendar",
+  "Outlook"
+ ],
+ "depends": [],
+ "status": "Not started",
+ "next": "Pick the calendar system and connect it.",
+ "due": null,
+ "order": 19
+}

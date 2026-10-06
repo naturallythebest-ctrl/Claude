@@ -1,0 +1,16 @@
+{
+ "code": "B3",
+ "phase": 2,
+ "area": "Customer communication",
+ "name": "Clean up email inbox and templates",
+ "goal": "Tidy inbox settings, rules and signatures, and build one template library in Zoho.",
+ "systems": [
+  "Outlook",
+  "Zoho CRM"
+ ],
+ "depends": [],
+ "status": "Not started",
+ "next": "Export the current Zoho email templates and mark which to keep.",
+ "due": null,
+ "order": 7
+}

@@ -1,0 +1,18 @@
+{
+ "code": "C2",
+ "phase": 3,
+ "area": "Customer communication",
+ "name": "After-hours away messaging",
+ "goal": "Around-the-clock acknowledgement: we received your message, we'll review it, and here are our service hours. The Sunday crew still works, but nobody has to reply right away.",
+ "systems": [
+  "Zoho Flow",
+  "GorillaDesk"
+ ],
+ "depends": [
+  "C1"
+ ],
+ "status": "Not started",
+ "next": "Confirm service hours and the Sunday crew schedule.",
+ "due": null,
+ "order": 13
+}

@@ -1,0 +1,13 @@
+{
+ "block": "Always on",
+ "time": "24/7",
+ "name": "Days-off vehicle alert",
+ "detail": "Urgent message if a truck starts or moves on a day off.",
+ "runBy": "Ford Pro alert",
+ "sendsTo": "Robert, team leaders",
+ "depends": [
+  "A3"
+ ],
+ "status": "Not set up",
+ "order": 12
+}

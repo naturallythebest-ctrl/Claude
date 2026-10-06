@@ -1,0 +1,15 @@
+{
+ "code": "E2",
+ "phase": 2,
+ "area": "People & training",
+ "name": "Truck inspection training documents",
+ "goal": "Inspection checklist and sign-off sheet for each technician, matched to the Monday morning inspection.",
+ "systems": [
+  "Docs"
+ ],
+ "depends": [],
+ "status": "Not started",
+ "next": "Send me the list of technicians starting next week.",
+ "due": "Next week",
+ "order": 11
+}

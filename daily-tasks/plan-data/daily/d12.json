@@ -1,0 +1,14 @@
+{
+ "block": "Always on",
+ "time": "24/7",
+ "name": "Client auto-replies",
+ "detail": "Every ticket and SMS gets a reply; after hours, the away message with our service hours.",
+ "runBy": "Zoho Flow + Claude",
+ "sendsTo": "Clients",
+ "depends": [
+  "C1",
+  "C2"
+ ],
+ "status": "Not set up",
+ "order": 11
+}
