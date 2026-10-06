@@ -28,7 +28,6 @@ Inactive Customers, Truck Orders, One Time, Calls, Tasks, Customer Invoice) and
 | ☐ | Follow up on open quotes and move each deal to its correct stage. | Sales | Zoho Deals |
 | ☐ | Schedule new and one-time jobs; handle reschedules. | Office | Zoho One Time / My Jobs |
 | ☐ | Complete each service. Note pest activity and conducive conditions, and take photos. | Technicians | Job site |
-| ☐ | Record chemical application details for every stop: product, EPA reg #, amount, target pest, area treated. | Technicians | Service record |
 | ☐ | Pass add-on service needs or referrals to the office as new leads. | Technicians | Zoho Leads |
 
 ## 3. Midday (12:00 – 2:00 PM)
@@ -54,7 +53,7 @@ Inactive Customers, Truck Orders, One Time, Calls, Tasks, Customer Invoice) and
 
 | ✔ | Task | Who | Where |
 |---|------|-----|-------|
-| ☐ | Mark all jobs complete with notes, photos, and chemical usage. | Technicians | Zoho My Jobs |
+| ☐ | Mark all jobs complete with notes and photos. | Technicians | Zoho My Jobs |
 | ☐ | Submit truck and supply order requests for tomorrow. | Technicians | Zoho Truck Orders |
 | ☐ | Lock up chemicals, clean equipment, and secure the vehicle. | Technicians | Truck |
 | ☐ | Confirm tomorrow's schedule and send appointment reminders. | Office | Zoho My Jobs |
