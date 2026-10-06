@@ -18,10 +18,7 @@ Inactive Customers, Truck Orders, One Time, Calls, Tasks, Customer Invoice) and
 | ☐ | Check voicemail, email, and SalesInbox. Flag anything urgent. | Office | Zoho SalesInbox |
 | ☐ | Review today's schedule and routes in **My Jobs**. Fill any gaps. | Office | Zoho My Jobs |
 | ☐ | Confirm today's appointments with customers (call or text). | Office | Zoho Calls |
-| ☐ | Vehicle walk-around: tires, lights, fluids, sprayer equipment. | Technicians | Truck |
-| ☐ | Check chemical and bait stock, PPE, labels, and SDS binder on the truck. | Technicians | Truck |
 | ☐ | Review your route and job notes before leaving. | Technicians | Zoho My Jobs |
-| ☐ | **7:30 team huddle (10 min):** today's jobs, callbacks, priorities, safety reminder. | Manager | In person |
 
 ## 2. Morning (8:00 AM – 12:00 PM)
 
@@ -66,6 +63,14 @@ Inactive Customers, Truck Orders, One Time, Calls, Tasks, Customer Invoice) and
 | ☐ | **Daily review:** jobs done vs. scheduled, new leads, deals won, open tickets, payments in. | Manager | Zoho Reports / QuickBooks |
 
 ---
+
+## Every Monday Morning (weekly, 7:00 – 8:00 AM)
+
+| ✔ | Task | Who | Where |
+|---|------|-----|-------|
+| ☐ | Vehicle inspection: tires, lights, fluids, sprayer equipment. | Technicians | Truck |
+| ☐ | Check chemical and bait stock, PPE, labels, and SDS binder on the truck. | Technicians | Truck |
+| ☐ | **7:30 team huddle:** the week's jobs, callbacks, priorities, safety reminder. | Manager | In person |
 
 ## Every Friday (add-on)
 

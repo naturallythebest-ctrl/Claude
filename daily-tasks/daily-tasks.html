@@ -72,10 +72,7 @@ const BLOCKS = [
     ["Check voicemail, email and SalesInbox. Flag anything urgent.", "Office", "Zoho SalesInbox"],
     ["Review today's schedule and routes in My Jobs. Fill any gaps.", "Office", "Zoho My Jobs"],
     ["Confirm today's appointments with customers by call or text.", "Office", "Zoho Calls"],
-    ["Vehicle walk-around: tires, lights, fluids, sprayer equipment.", "Technicians", "Truck", 1],
-    ["Check chemical and bait stock, PPE, labels and SDS binder on the truck.", "Technicians", "Truck", 1],
-    ["Review your route and job notes before leaving.", "Technicians", "Zoho My Jobs"],
-    ["7:30 team huddle, 10 minutes: today's jobs, callbacks, priorities, safety reminder.", "Manager", "In person", 1]
+    ["Review your route and job notes before leaving.", "Technicians", "Zoho My Jobs"]
   ]},
   { name: "Morning", time: "8:00 AM – 12:00 PM", tasks: [
     ["Respond to every new lead within 1 hour.", "Sales", "Zoho Leads", 1],
@@ -108,6 +105,11 @@ const BLOCKS = [
     ["Daily review: jobs done vs. scheduled, new leads, deals won, open tickets, payments in.", "Manager", "Zoho Reports / QuickBooks"]
   ]}
 ];
+const MONDAY = { name: "Monday morning", time: "Weekly · 7:00 – 8:00 AM", tasks: [
+  ["Vehicle inspection: tires, lights, fluids, sprayer equipment.", "Technicians", "Truck", 1],
+  ["Check chemical and bait stock, PPE, labels and SDS binder on the truck.", "Technicians", "Truck", 1],
+  ["7:30 team huddle: the week's jobs, callbacks, priorities, safety reminder.", "Manager", "In person", 1]
+]};
 const FRIDAY = { name: "Fridays only", time: "Weekly add-on", tasks: [
   ["Review the week: revenue, jobs completed, close rate, callbacks.", "Manager", "Zoho Reports / QuickBooks"],
   ["Check chemical inventory against next week's schedule.", "Manager", "Inventory"],
@@ -117,7 +119,7 @@ const FRIDAY = { name: "Fridays only", time: "Weekly add-on", tasks: [
 
 const now = new Date();
 const dayKey = "ep-" + now.toISOString().slice(0, 10);
-const blocks = now.getDay() === 5 ? [...BLOCKS, FRIDAY] : BLOCKS;
+const blocks = [...(now.getDay() === 1 ? [MONDAY] : []), ...BLOCKS, ...(now.getDay() === 5 ? [FRIDAY] : [])];
 let done = {}, role = "All";
 try { done = JSON.parse(localStorage.getItem(dayKey)) || {}; role = localStorage.getItem("ep-role") || "All"; } catch (e) {}
 const save = () => { try { localStorage.setItem(dayKey, JSON.stringify(done)); localStorage.setItem("ep-role", role); } catch (e) {} };
@@ -138,7 +140,7 @@ function render() {
   main.innerHTML = "";
   let total = 0, checked = 0;
   blocks.forEach((blk, bi) => {
-    const tasks = blk.tasks.map((t, ti) => ({ t, id: bi + "-" + ti })).filter(x => role === "All" || x.t[1] === role);
+    const tasks = blk.tasks.map((t, ti) => ({ t, id: blk.name + "-" + ti })).filter(x => role === "All" || x.t[1] === role);
     if (!tasks.length) return;
     const n = tasks.filter(x => done[x.id]).length;
     total += tasks.length; checked += n;
